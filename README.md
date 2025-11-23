@@ -1,4 +1,4 @@
-# Industrial IoT Digital Twin 🏭
+# Industrial IoT Digital Twin
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tech Stack](https://img.shields.io/badge/Stack-NestJS_|_Three.js_|_MQTT_|_FreeRTOS-blue)](https://github.com/AyyanYe)
@@ -10,7 +10,7 @@ This project demonstrates an end-to-end IoT pipeline: from **bare-metal firmware
 
 ---
 
-## 🏗 System Architecture
+## System Architecture
 
 The system follows an **Event-Driven Architecture** to ensure real-time performance and decoupling between hardware and software layers.
 
@@ -31,7 +31,7 @@ graph LR
 
 -----
 
-## 🛠 Technology Stack
+## Technology Stack
 
 This project leverages a modern "Heavy" stack, bridging Embedded Systems with Full-Stack Web Development.
 
@@ -58,7 +58,7 @@ This project leverages a modern "Heavy" stack, bridging Embedded Systems with Fu
 
 -----
 
-## 📂 Project Structure
+## Project Structure
 
 This repository uses a **Monorepo** structure to maintain version consistency across the stack.
 
@@ -71,7 +71,7 @@ This repository uses a **Monorepo** structure to maintain version consistency ac
 
 -----
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -113,7 +113,7 @@ python motor_sim.py
 
 -----
 
-## 🔮 Roadmap
+## Roadmap
 
   - [x] **Phase 1:** Infrastructure Setup (Docker/MQTT)
   - [x] **Phase 2:** Backend Gateway (NestJS MQTT-to-WebSocket)
@@ -124,7 +124,7 @@ python motor_sim.py
 
 -----
 
-## 👤 Author
+## Author
 
 **Ayyan Ahmed** *M.Sc. Information & Communication Engineering | TU Darmstadt*
 
@@ -133,6 +133,6 @@ python motor_sim.py
 
 -----
 
-## 📄 License
+## License
 
 This project is licensed under the **MIT License** - see the [LICENSE](https://www.google.com/search?q=LICENSE) file for details.
