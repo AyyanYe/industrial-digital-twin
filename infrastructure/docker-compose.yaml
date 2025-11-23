@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883" # MQTT Port (Device connects here)
+      - "9001:9001" # WebSockets Port (Frontend can connect here directly if needed)
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
