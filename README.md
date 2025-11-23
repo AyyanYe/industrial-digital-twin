@@ -16,10 +16,10 @@ The system follows an **Event-Driven Architecture** to ensure real-time performa
 
 ```mermaid
 graph LR
-    A[Industrial Motor (STM32/Sim)] -- MQTT (JSON) --> B(Mosquitto Broker)
-    B -- TCP --> C{NestJS Gateway}
-    C -- WebSockets (Socket.io) --> D[React + Three.js Dashboard]
-    D -- User Interaction --> C
+    A["Industrial Motor (STM32/Sim)"] -- "MQTT (JSON)" --> B("Mosquitto Broker")
+    B -- "TCP" --> C{"NestJS Gateway"}
+    C -- "WebSockets (Socket.io)" --> D["React + Three.js Dashboard"]
+    D -- "User Interaction" --> C
 ````
 
 **Key Data Flow:**
