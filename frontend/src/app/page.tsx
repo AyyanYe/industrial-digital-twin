@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import MotorScene from "../components/Motor3D";
 
-// Connect to NestJS (Default Port 3001)
-const socket = io("https://super-duper-succotash-66546q6vrp535jjj-3001.app.github.dev/");
+// Connect to NestJS (Update URL if your Codespace changes)
+const socket = io("https://super-duper-succotash-66546q6vrp535jjj-3001.app.github.dev/", {
+  transports: ["websocket", "polling"],
+});
 
 interface MotorData {
   device_id: string;
@@ -37,7 +39,6 @@ export default function Home() {
       setConnected(false);
     });
 
-    // Listen for the event name we defined in NestJS (events.gateway.ts)
     socket.on("motor_update", (payload: MotorData) => {
       setData(payload);
     });
@@ -48,6 +49,30 @@ export default function Home() {
       socket.off("motor_update");
     };
   }, []);
+
+  // --- NEW: Reboot Command Handler ---
+  const handleReboot = async () => {
+    if (!connected) {
+      alert("System Offline: Cannot send command.");
+      return;
+    }
+
+    try {
+      // Call the NestJS API endpoint we created
+      const response = await fetch("https://super-duper-succotash-66546q6vrp535jjj-3001.app.github.dev/motor/reboot", {
+        method: "POST",
+      });
+      
+      if (response.ok) {
+        alert("COMMAND SENT: Rebooting Remote Device...");
+      } else {
+        alert("Error sending command");
+      }
+    } catch (err) {
+      console.error("Failed to send reboot command:", err);
+      alert("Network Error: Could not reach backend.");
+    }
+  };
 
   return (
     <main className="min-h-screen bg-slate-950 text-white p-8 font-sans">
@@ -71,7 +96,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Left Column: Stats */}
+          {/* Left Column: Stats & Controls */}
           <div className="space-y-4">
             <StatCard label="Device ID" value={data.device_id} />
             <StatCard 
@@ -85,9 +110,23 @@ export default function Home() {
               alert={data.vibration > 1.0} 
             />
             <StatCard label="Status" value={data.status} />
+
+            {/* --- NEW: Control Panel Section --- */}
+            <div className="pt-4 border-t border-slate-800 mt-6">
+              <h3 className="text-slate-400 text-xs uppercase tracking-wider mb-3">Operator Controls</h3>
+              <button 
+                onClick={handleReboot}
+                className="w-full bg-red-600/10 hover:bg-red-600 text-red-500 hover:text-white border border-red-600/50 font-bold py-3 px-4 rounded-xl shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 group"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+                EMERGENCY REBOOT
+              </button>
+            </div>
           </div>
 
-          {/* Right Column: 3D Scene (Spans 2 columns) */}
+          {/* Right Column: 3D Scene */}
           <div className="lg:col-span-2">
             <MotorScene data={data} />
             <p className="text-xs text-slate-500 mt-2 text-center">
@@ -101,7 +140,6 @@ export default function Home() {
   );
 }
 
-// Simple Utility Component for UI
 function StatCard({ label, value, alert = false }: { label: string, value: string | number, alert?: boolean }) {
   return (
     <div className={`p-6 rounded-xl border transition-colors ${
