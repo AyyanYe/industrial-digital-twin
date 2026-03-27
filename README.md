@@ -4,6 +4,8 @@
 [![Tech Stack](https://img.shields.io/badge/Stack-NestJS_|_Three.js_|_MQTT_|_FreeRTOS-blue)](https://github.com/AyyanYe)
 [![Status](https://img.shields.io/badge/Status-Completed-green)]()
 
+![Dashboard Screenshot](Public/FrontPage.PNG)
+
 **A real-time industrial monitoring system featuring a 3D Digital Twin visualization.**
 
 This project demonstrates an end-to-end IoT pipeline: from **bare-metal firmware** running FreeRTOS, up through a **Python Edge Bridge** to **cloud infrastructure**, ending in a high-performance **interactive frontend**. It simulates the monitoring of high-speed industrial motors, detecting anomalies in vibration and temperature via statistical edge-inference.
