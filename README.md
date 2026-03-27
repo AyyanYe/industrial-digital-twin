@@ -12,7 +12,7 @@ This project demonstrates an end-to-end IoT pipeline: from **bare-metal firmware
 
 ## System Architecture
 
-The system follows an **Event-Driven Architecture** to ensure real-time performance and decoupling between hardware and software layers.
+The system follows a **Bi-Directional Event-Driven Architecture**. It bridges the "Edge" (Physical Hardware) to the "Cloud" (NestJS/React) using secure MQTT and WebSockets.
 
 ```mermaid
 graph LR
@@ -86,7 +86,7 @@ npm install
 npm run start:dev
 ```
 
-*The API will listen on Port 3001 and subscribe to the MQTT topic `sensors/motor/data`.*
+*The API listens on Port 3001 and connects to HiveMQ Cloud.*
 
 ### 2\. Start the Frontend Dashboard
 
@@ -132,7 +132,8 @@ python gateway.py
 
 ## Author
 
-**Ayyan Ahmed** *M.Sc. Information & Communication Engineering | TU Darmstadt*
+**Ayyan Ahmed**
+*M.Sc. Information & Communication Engineering | TU Darmstadt*
 
   * **GitHub:** [github.com/AyyanYe](https://github.com/AyyanYe)
   * **Focus:** Full-Stack Engineering & Embedded Systems

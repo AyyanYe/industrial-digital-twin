@@ -1,12 +1,32 @@
-import { Controller } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
 import { EventsGateway } from '../events/events.gateway';
+import { Controller, Post, Body, HttpCode } from '@nestjs/common';
+import { ClientProxy, ClientProxyFactory, ClientOptions, Transport, MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller()
+@Controller('motor')
 export class MotorController {
-  constructor(private readonly eventsGateway: EventsGateway) {}
+  private client: ClientProxy;
+  constructor(private readonly eventsGateway: EventsGateway) {
+    this.client = ClientProxyFactory.create({
+      transport: Transport.MQTT,
+      options: {
+        url: 'mqtts://055b4bf179fd47febadfa84365e1037a.s1.eu.hivemq.cloud:8883', // Update this!
+        username: 'admin',
+        password: 'Gayassnigga123',
+        socketOptions: { rejectUnauthorized: true }
+      },
+    } as ClientOptions);
+  }
 
-  @MessagePattern('sensors/motor/data')
+  @Post('reboot')
+  @HttpCode(200)
+  rebootDevice() {
+    console.log("Sending REBOOT command...");
+    // Publish "REBOOT" to the topic Python is listening to
+    this.client.emit('motor/admin', 'REBOOT'); 
+    return { status: 'Command Sent' };
+  }
+
+  @MessagePattern('motor/data')
   handleMotorData(@Payload() data: any) {
     console.log('Received Motor Data:', data);
     
