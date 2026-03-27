@@ -5,7 +5,7 @@ import { io } from "socket.io-client";
 import MotorScene from "../components/Motor3D";
 
 // Connect to NestJS (Default Port 3001)
-const socket = io("https://super-duper-succotash-66546q6vrp535jjj-3001.app.github.dev/");
+const socket = io("http://localhost:3001");
 
 interface MotorData {
   device_id: string;
@@ -61,11 +61,23 @@ export default function Home() {
             </h1>
             <p className="text-slate-400 text-sm mt-1">Real-time Telemetry Dashboard</p>
           </div>
-          <div className="flex items-center gap-3">
-            <div className={`w-3 h-3 rounded-full ${connected ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-red-500'}`} />
-            <span className="text-sm font-mono text-slate-300">
-              {connected ? "SYSTEM ONLINE" : "DISCONNECTED"}
-            </span>
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => {
+                if (window.confirm("Are you sure you want to hard reset the motor?")) {
+                  socket.emit("reboot_command");
+                }
+              }}
+              className="px-4 py-2 bg-red-600/90 hover:bg-red-500 active:bg-red-700 text-white text-sm font-bold uppercase tracking-wider rounded-lg transition-all border border-red-500/50 shadow-[0_0_15px_rgba(220,38,38,0.3)]"
+            >
+              Reboot Motor
+            </button>
+            <div className="flex items-center gap-3 border-l border-slate-700 pl-6">
+              <div className={`w-3 h-3 rounded-full ${connected ? 'bg-emerald-500 shadow-[0_0_10px_#10b981]' : 'bg-red-500'}`} />
+              <span className="text-sm font-mono text-slate-300">
+                {connected ? "SYSTEM ONLINE" : "DISCONNECTED"}
+              </span>
+            </div>
           </div>
         </div>
 

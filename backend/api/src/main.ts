@@ -9,7 +9,9 @@ async function bootstrap() {
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.MQTT,
     options: {
-      url: 'mqtt://localhost:1883',
+      url: 'mqtts://055b4bf179fd47febadfa84365e1037a.s1.eu.hivemq.cloud:8883',
+      username: 'admin',
+      password: 'Gayassnigga123',
     },
   });
 
